@@ -2,6 +2,7 @@ package com.westside.controller;
 
 import com.westside.domain.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,8 @@ public class HomeController {
 
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("categories", categoryRepository.findAll());
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "name"));
+        model.addAttribute("categories", categoryRepository.findAll(sort));
 
         return "home";
     }
